@@ -6,7 +6,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import cv2
 
 # Load Pre-trained Model (Ensure this file is available)
-MODEL_PATH = "/Users/ajaykota/Downloads/attendence/backend/face/face_recognition_model.pkl"
+MODEL_PATH = "/Users/ajaykota/Downloads/attendence/backend/face_features2.pkl"
 
 def extract_face_features(image_path):
     """Extracts facial embeddings from an image."""

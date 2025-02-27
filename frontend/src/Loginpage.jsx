@@ -26,40 +26,80 @@ const Login = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card shadow p-4" style={{ width: "350px" }}>
-        <h3 className="text-center mb-3">Login</h3>
-        
-        {error && <div className="alert alert-danger py-1">{error}</div>}
+      <div className="card shadow-lg p-4" style={{ width: "450px" }}>
+        <div className="card-body">
+          <h3 className="text-center mb-4 text-primary">Attendance Portal</h3>
+          <p className="text-center text-muted mb-4">Please sign in to continue.</p>
 
-        <form onSubmit={handleLogin}>
-          <div className="mb-3">
-            <label className="form-label">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
+          {error && (
+            <div className="alert alert-danger py-2 text-center">
+              <small>{error}</small>
+            </div>
+          )}
 
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <form onSubmit={handleLogin}>
+            {/* Username Field */}
+            <div className="row align-items-center mb-3">
+              <div className="col-3">
+                <label className="form-label fw-bold mb-0">Username</label>
+              </div>
+              <div className="col-9">
+                <input
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
 
-          <button className="btn btn-primary w-100" type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+            {/* Password Field */}
+            <div className="row align-items-center mb-4">
+              <div className="col-3">
+                <label className="form-label fw-bold mb-0">Password</label>
+              </div>
+              <div className="col-9">
+                <input
+                  type="password"
+                  className="form-control form-control-lg"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Login Button */}
+            <button
+              className="btn btn-primary w-100 btn-lg mb-3"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
+
+            {/* Signup Link */}
+            <div className="text-center">
+              <small className="text-muted">
+                Don't have an account? <a href="/signup">Sign up</a>
+              </small>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Date, UniqueConst
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from datetime import date
 from typing import List, Optional
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -38,6 +39,10 @@ class Attendance(Base):
     # Ensure (name, date, period) is unique
     __table_args__ = (UniqueConstraint("name", "date", "period", name="unique_attendance"),)
 
+class AttendanceRequest(BaseModel):
+    names: List[str]
+    period: int
+
 # Create Table if it doesn't exist
 Base.metadata.create_all(bind=engine)
 
@@ -53,33 +58,37 @@ UPLOAD_DIR = os.path.expanduser("~/attendence_uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # File Upload Route (with Attendance Marking)
-@app.post("/upload/")
-async def upload_image(file: UploadFile = File(...), period: int = 1, db: Session = Depends(get_db)):
+@app.post("/uploadimage/")
+async def upload_image(file: UploadFile = File(...)):
     file_path = os.path.join(UPLOAD_DIR, "image.jpeg")
 
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
 
     absolute_file_path = os.path.abspath(file_path)
-    detected_names = recognize_faces(absolute_file_path)  # List of recognized names
-    detected_names.remove("Unknown")
-    print(detected_names)
+    detected_names = recognize_faces(absolute_file_path)  # Assume recognize_faces function is defined
 
-    # Mark attendance
+    if "Unknown" in detected_names:
+        detected_names.remove("Unknown")
+
+    return {"detected_names": detected_names}
+
+@app.post("/markattendance/")
+async def mark_attendance(request: AttendanceRequest, db: Session = Depends(get_db)):
     today = date.today()
     added_count = 0
 
-    for name in detected_names:
-        attendance_entry = Attendance(name=name, date=today, period=period)
+    for name in request.names:
+        attendance_entry = Attendance(name=name, date=today, period=request.period)
         try:
             db.add(attendance_entry)
             db.commit()
             added_count += 1
-        except:
-            db.rollback()  # Ignore duplicates
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=f"Failed to mark attendance for {name}: {str(e)}")
 
-    return {"message": f"{added_count} records added successfully!", "detected_names": detected_names}
-
+    return {"message": f"{added_count} records added successfully!", "detected_names": request.names}
 
 
 # ✅ Route: Get attendance on a specific date
