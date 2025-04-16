@@ -1,0 +1,160 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Global Styles */
+:root {
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --success-color: #4cc9f0;
+  --info-color: #4895ef;
+  --warning-color: #f72585;
+  --danger-color: #e63946;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --border-radius: 0.5rem;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Login Page Styles */
+.login-bg {
+  background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+  min-height: 100vh;
+}
+
+.rounded-4 {
+  border-radius: 1rem !important;
+}
+
+/* Dashboard Styles */
+.dashboard-card {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Form Controls */
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+/* Tables */
+.table-responsive {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.table th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+
+/* Cards */
+.card {
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Attendance Grid */
+.attendance-checkbox {
+  cursor: pointer;
+}
+
+.attendance-item {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  margin-bottom: 0.5rem;
+}
+
+.attendance-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
